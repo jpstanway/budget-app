@@ -7,6 +7,8 @@ example = budget.Category("Stuff")
 example.deposit(100)
 example.deposit(12.12)
 print('EXAMPLE', example.get_balance())
+example.withdraw(10, "test")
+print('example 2', example.get_balance())
 
 food = budget.Category("Food")
 food.deposit(1000, "initial deposit")

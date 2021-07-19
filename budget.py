@@ -8,13 +8,19 @@ class Category:
         self.ledger.append({"amount": amt, "description": desc})
 
     def withdraw(self, amt, desc=''):
-        return True
+        balance = self.get_balance()
+
+        if (balance >= amt):
+            self.ledger.append({"amount": -abs(amt), "description": desc})
+            return True
+
+        return False
 
     def get_balance(self):
         balance = 0
 
         for transaction in self.ledger:
-            balance += int(transaction['amount'])
+            balance += float(transaction['amount'])
 
         return balance
 
