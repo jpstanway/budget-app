@@ -25,7 +25,13 @@ class Category:
         return balance
 
     def transfer(self, amt, category):
-        return True
+        success = self.withdraw(amt, "Transfer to " + self.category)
+
+        if (success):
+            category.deposit(amt, "Transfer from " + self.category)
+            return True
+
+        return False
 
     def check_funds(self, amt):
         balance = self.get_balance()
