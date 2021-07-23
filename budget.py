@@ -8,9 +8,9 @@ class Category:
         self.ledger.append({"amount": amt, "description": desc})
 
     def withdraw(self, amt, desc=''):
-        balance = self.get_balance()
+        haveFunds = self.check_funds(amt)
 
-        if (balance >= amt):
+        if (haveFunds):
             self.ledger.append({"amount": -abs(amt), "description": desc})
             return True
 
@@ -28,6 +28,11 @@ class Category:
         return True
 
     def check_funds(self, amt):
+        balance = self.get_balance()
+
+        if (amt > balance):
+            return False
+
         return True
 
 
