@@ -1,8 +1,7 @@
 class Category:
-    ledger = []
-
     def __init__(self, category):
         self.category = category
+        self.ledger = []
 
     def deposit(self, amt, desc=''):
         self.ledger.append({"amount": amt, "description": desc})
@@ -25,7 +24,7 @@ class Category:
         return balance
 
     def transfer(self, amt, category):
-        success = self.withdraw(amt, "Transfer to " + self.category)
+        success = self.withdraw(amt, "Transfer to " + category.category)
 
         if (success):
             category.deposit(amt, "Transfer from " + self.category)
