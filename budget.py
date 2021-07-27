@@ -3,6 +3,33 @@ class Category:
         self.category = category
         self.ledger = []
 
+    def __str__(self):
+        # title
+        catLen = len(self.category)
+        titleLen = 30 - catLen
+        titleMid = round(titleLen / 2)
+        title = ("*" * titleMid) + self.category + \
+            ("*" * (titleLen - titleMid)) + "\n"
+
+        transactions = ''
+        # transactions
+        for transaction in self.ledger:
+            newDesc = transaction['description']
+            newAmt = str(transaction['amount'])
+            descLen = len(newDesc)
+            amtLen = len(newAmt)
+            spaceLen = 30 - descLen - amtLen
+
+            if (descLen + amtLen >= 30):
+                diff = 30 - (descLen + amtLen + 1)
+                newDesc = newDesc[:diff]
+                spaceLen = 1
+
+            spaces = spaceLen * " "
+            transactions += newDesc + spaces + newAmt + "\n"
+
+        return title + transactions
+
     def deposit(self, amt, desc=''):
         self.ledger.append({"amount": amt, "description": desc})
 
