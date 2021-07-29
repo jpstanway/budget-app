@@ -11,11 +11,16 @@ class Category:
         title = ("*" * titleMid) + self.category + \
             ("*" * (titleLen - titleMid)) + "\n"
 
-        transactions = ''
         # transactions
+        transactions = ''
         for transaction in self.ledger:
             newDesc = transaction['description']
             newAmt = str(transaction['amount'])
+            decimal = newAmt.find('.')
+
+            if (decimal == -1):
+                newAmt += '.00'
+
             descLen = len(newDesc)
             amtLen = len(newAmt)
             spaceLen = 30 - descLen - amtLen
@@ -28,7 +33,10 @@ class Category:
             spaces = spaceLen * " "
             transactions += newDesc + spaces + newAmt + "\n"
 
-        return title + transactions
+        # total
+        total = 'Total: ' + str(self.get_balance())
+
+        return title + transactions + total
 
     def deposit(self, amt, desc=''):
         self.ledger.append({"amount": amt, "description": desc})
