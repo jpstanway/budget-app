@@ -77,4 +77,17 @@ class Category:
 
 
 def create_spend_chart(categories):
-    return categories
+    heading = "Percentage spent by category\n"
+    chart = ""
+    space = " "
+    percentage = 100
+    dividerLen = (3 * len(categories)) + 1
+    divider = (space * 4) + ("-" * dividerLen)
+
+    while percentage >= 0:
+        percent = str(percentage)
+        chart += space * (3 - len(percent))
+        chart += percent + "|\n"
+        percentage -= 10
+
+    return heading + chart + divider
