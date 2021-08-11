@@ -76,6 +76,26 @@ class Category:
         return True
 
 
+def create_category_strings(categories):
+    global catNames
+
+    for index, cat in categories:
+        name = [char for char in cat.category]
+
+        if (index == 0):
+            catNames = name
+
+        print('next name', name)
+        for idx, letter in enumerate(name):
+            print('next idx', idx)
+            if catNames[idx]:
+                catNames[idx] += letter
+            else:
+                catNames[idx] = ''
+
+    return catNames
+
+
 def create_spend_chart(categories):
     heading = "Percentage spent by category\n"
     chart = ""
@@ -83,6 +103,8 @@ def create_spend_chart(categories):
     percentage = 100
     dividerLen = (3 * len(categories)) + 1
     divider = (space * 4) + ("-" * dividerLen)
+    cats = create_category_strings(categories)
+    print('cats', cats)
 
     while percentage >= 0:
         percent = str(percentage)
