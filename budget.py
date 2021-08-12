@@ -76,24 +76,33 @@ class Category:
         return True
 
 
-def create_category_strings(categories):
-    global catNames
+def get_max_length(categories):
+    max = 0
 
-    for index, cat in categories:
+    for cat in categories:
+        if (len(cat.category) > max):
+            max = len(cat.category)
+
+    return max
+
+
+def create_category_strings(categories):
+    maxLength = get_max_length(categories)
+    catNames = []
+    newLine = '\n'
+
+    while (maxLength >= 0):
+        catNames.append(' ')
+        maxLength -= 1
+
+    for cat in categories:
         name = [char for char in cat.category]
 
-        if (index == 0):
-            catNames = name
-
-        print('next name', name)
         for idx, letter in enumerate(name):
-            print('next idx', idx)
-            if catNames[idx]:
-                catNames[idx] += letter
-            else:
-                catNames[idx] = ''
+            catNames[idx] += letter + '  '
 
-    return catNames
+    print('done', catNames)
+    return newLine.join(catNames)
 
 
 def create_spend_chart(categories):
