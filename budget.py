@@ -88,20 +88,28 @@ def get_max_length(categories):
 
 def create_category_strings(categories):
     maxLength = get_max_length(categories)
+    counter = maxLength
     catNames = []
     newLine = '\n'
+    space = ' '
 
-    while (maxLength >= 0):
-        catNames.append(' ')
-        maxLength -= 1
+    while (counter >= 0):
+        catNames.append(space * 5)
+        counter -= 1
 
     for cat in categories:
         name = [char for char in cat.category]
 
-        for idx, letter in enumerate(name):
-            catNames[idx] += letter + '  '
+        if (len(name) < maxLength):
+            diff = maxLength - len(name)
 
-    print('done', catNames)
+            while (diff >= 0):
+                name.append(space)
+                diff -= 1
+
+        for idx, letter in enumerate(name):
+            catNames[idx] += letter + (space * 2)
+
     return newLine.join(catNames)
 
 
@@ -111,9 +119,8 @@ def create_spend_chart(categories):
     space = " "
     percentage = 100
     dividerLen = (3 * len(categories)) + 1
-    divider = (space * 4) + ("-" * dividerLen)
+    divider = (space * 4) + ("-" * dividerLen) + '\n'
     cats = create_category_strings(categories)
-    print('cats', cats)
 
     while percentage >= 0:
         percent = str(percentage)
@@ -121,4 +128,4 @@ def create_spend_chart(categories):
         chart += percent + "|\n"
         percentage -= 10
 
-    return heading + chart + divider
+    return heading + chart + divider + cats
