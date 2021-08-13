@@ -1,3 +1,6 @@
+import math
+
+
 class Category:
     def __init__(self, category):
         self.category = category
@@ -113,6 +116,35 @@ def create_category_strings(categories):
     return newLine.join(catNames)
 
 
+def get_cat_spent(category):
+    ledger = category.ledger
+    spent = 0
+
+    for item in ledger:
+        if (item['amount'] < 0):
+            spent += abs(item['amount'])
+
+    return spent
+
+
+def get_total_spent(categories):
+    spent = {}
+    total = 0
+
+    for cat in categories:
+        catTotal = get_cat_spent(cat)
+        spent[cat.category] = {
+            'amount': catTotal,
+        }
+        total += catTotal
+
+    for item in spent:
+        category = spent[item]
+        category['percent'] = math.floor(category['amount'] / total * 100)
+
+    return spent
+
+
 def create_spend_chart(categories):
     heading = "Percentage spent by category\n"
     chart = ""
@@ -121,7 +153,8 @@ def create_spend_chart(categories):
     dividerLen = (3 * len(categories)) + 1
     divider = (space * 4) + ("-" * dividerLen) + '\n'
     cats = create_category_strings(categories)
-
+    spent = get_total_spent(categories)
+    print('spent', spent)
     while percentage >= 0:
         percent = str(percentage)
         chart += space * (3 - len(percent))
