@@ -96,7 +96,7 @@ def create_category_strings(categories):
     newLine = '\n'
     space = ' '
 
-    while (counter >= 0):
+    while (counter > 0):
         catNames.append(space * 5)
         counter -= 1
 
@@ -106,7 +106,7 @@ def create_category_strings(categories):
         if (len(name) < maxLength):
             diff = maxLength - len(name)
 
-            while (diff >= 0):
+            while (diff > 0):
                 name.append(space)
                 diff -= 1
 
