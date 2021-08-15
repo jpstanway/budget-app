@@ -154,11 +154,19 @@ def create_spend_chart(categories):
     divider = (space * 4) + ("-" * dividerLen) + '\n'
     cats = create_category_strings(categories)
     spent = get_total_spent(categories)
-    print('spent', spent)
+
     while percentage >= 0:
         percent = str(percentage)
         chart += space * (3 - len(percent))
-        chart += percent + "|\n"
+        chart += percent + "| "
+
+        for cat in spent:
+            if (spent[cat]['percent'] >= percentage):
+                chart += "o  "
+            else:
+                chart += space * 3
+
+        chart += "\n"
         percentage -= 10
 
     return heading + chart + divider + cats
